@@ -2,6 +2,7 @@ var socket = io('/terie');     //http://socket.io/docs/
 var message_state = 0;
 var buttons = [];
 var last_played;
+var popular;
 
 var like_count = 0, love_count = 0, haha_count=0, wow_count=0, angry_count=0, sad_count=0;
 
@@ -49,7 +50,6 @@ function preload() {
     angry_song = loadSound("sounds/angry_song.mp3");
     sad_song = loadSound("sounds/sad_song.mp3");
    
-    default_song = loadSound("sounds/default.mp3");
 }
 
 
@@ -105,57 +105,69 @@ function draw(){
          buttons[i].display();
          buttons[i].update();
     }
-
+    most_popular();
 }
 
 socket.on('like', function(){
     console.log("like fired");
     message_state=1;
- 
-    stop_everything();
-    like_song.play();
-
+    
+    like_count++;
+    
+    if(popular == "like" && !like_song.isPlaying()) {
+        stop_everything();
+        like_song.play();
+    }
+    
     buttons.push(new button(7/60*windowHeight, like));
 
-    like_count++;
+   
 })
 
 socket.on('love', function(){
     console.log("love");
     message_state=2;
-
-    stop_everything();
-    love_song.play();
-  
+    
+    love_count++;
+    
+    if(popular == "love" && !love_song.isPlaying()) {
+        stop_everything();
+        love_song.play();
+    }
 
     buttons.push(new button(14/60*windowHeight, love));
 
-    love_count++;
+    
 })
 
 socket.on('haha', function(){
     console.log("haha");
     message_state=3;
    
-    stop_everything();
-    haha_song.play();
-
+    haha_count++;
+    
+    if(popular == "haha" && !haha_song.isPlaying()) {
+        stop_everything();
+        haha_song.play();
+    }
 
     buttons.push(new button(21/60*windowHeight, haha));
-
-    haha_count++;
+   
 })
 
 socket.on('wow', function(){
     console.log("wow");
     message_state=4;
 
-    stop_everything();
-    wow_song.play();
-
-    buttons.push(new button(28/60*windowHeight, wow));
-
     wow_count++;
+    
+    if(popular == "wow" && !wow_song.isPlaying()) {
+        stop_everything();
+        wow_song.play();
+    }
+    
+    buttons.push(new button(28/60*windowHeight, wow));
+  
    
 })
 
@@ -163,27 +175,31 @@ socket.on('angry', function(){
     console.log("angry");
     message_state=5;
 
-    stop_everything();
-    angry_song.play();
-
-    buttons.push(new button(35/60*windowHeight, angry));
-
     angry_count++;
+    
+    if(popular == "angry" && !angry_song.isPlaying()) {
+        stop_everything();
+        angry_song.play();
+    }
+    
+    buttons.push(new button(35/60*windowHeight, angry));
+    
 })
 
 socket.on('sad', function(){
     console.log("sad");
     message_state=6;
 
-    stop_everything();
-    sad_song.play();
-  
-
-    buttons.push(new button(.7*windowHeight, sad));
-
     sad_count++;
+    
+    if(popular == "sad" && !sad_song.isPlaying()) {
+        stop_everything();
+        sad_song.play();
+    }
+    
+    buttons.push(new button(.7*windowHeight, sad));
+    
 })
-
 
 function stop_everything() {
     if (like_song.isPlaying()){
@@ -204,5 +220,29 @@ function stop_everything() {
     else if (sad_song.isPlaying()) {
         sad_song.stop();
     }
+}
+
+
+function most_popular() {
+ 
+    if(like_count > love_count && like_count > haha_count && like_count > wow_count && like_count > angry_count && like_count > sad_count) {
+        popular = "like";
+    }
+    else if(love_count > like_count && love_count > haha_count && love_count > wow_count && love_count > angry_count && love_count > sad_count) {
+        popular = "love";
+    }
+    else if(haha_count > like_count && haha_count > love_count && haha_count > wow_count && haha_count > angry_count && haha_count > sad_count) {
+        popular = "haha";
+    }
+    else if(wow_count > like_count && wow_count > love_count && wow_count > haha_count && wow_count > angry_count && wow_count > sad_count) {
+        popular = "wow";
+    }
+    else if(angry_count > like_count && angry_count > love_count && angry_count > haha_count && angry_count > wow_count && angry_count > sad_count) {
+        popular = "angry";
+    }
+    else if(sad_count > like_count && sad_count > love_count && sad_count > haha_count && sad_count > wow_count && sad_count > angry_count) {
+        popular = "sad";
+    }
+    
 }
 
