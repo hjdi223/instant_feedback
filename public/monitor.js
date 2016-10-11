@@ -12,7 +12,7 @@ function button(y, imgtype) {
 }
 
 button.prototype.display = function() {
-    image(this.type, this.xpos, this.ypos, 50, 50);
+    image(this.type, this.xpos, this.ypos, windowHeight/15, windowHeight/18);
 };
 
 button.prototype.update = function() {
@@ -23,7 +23,7 @@ button.prototype.update = function() {
 };
 
 function setup(){
-    createCanvas(windowWidth, (windowWidth / 16) * 9);
+    createCanvas(windowWidth, windowHeight);
     background(255);
     frameRate(30);
     smooth();
@@ -55,30 +55,30 @@ function preload() {
 
 
 function draw(){
-    background(198,198,198,255);
+    background(400,400,400,255);
     fill(255, 102, 153);
+
     text_size=40;
     
     last_played = default_song;
-   
-    
-    image(like, windowWidth/2-220, .85*windowHeight, 40, 40);
-    text(like_count, windowWidth/2-180, .85*windowHeight);
 
-    image(love, windowWidth/2-140, .85*windowHeight, 40, 40);
-    text(love_count, windowWidth/2-100, .85*windowHeight);
+    image(like, .3*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(like_count, .33*windowWidth, .88*windowHeight);
 
-    image(haha, windowWidth/2-60, .85*windowHeight, 40, 40);
-    text(haha_count, windowWidth/2-20, .85*windowHeight);
+    image(love, .37*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(love_count, .4*windowWidth, .88*windowHeight);
 
-    image(wow, windowWidth/2+20, .85*windowHeight, 40, 40);
-    text(haha_count, windowWidth/2+60, .85*windowHeight);
+    image(haha, .44*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(haha_count, .47*windowWidth, .88*windowHeight);
 
-    image(angry, windowWidth/2+100, .85*windowHeight, 40, 40);
-    text(angry_count, windowWidth/2+140, .85*windowHeight);
+    image(wow, .51*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(wow_count, .54*windowWidth, .88*windowHeight);
 
-    image(sad, windowWidth/2+180, .85*windowHeight, 40, 40);
-    text(sad_count, windowWidth/2+220, .85*windowHeight);
+    image(angry, .58*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(angry_count, .61*windowWidth, .88*windowHeight);
+
+    image(sad, .65*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
+    text(sad_count, .68*windowWidth, .88*windowHeight);
 
     if(message_state==0){
 
@@ -111,32 +111,37 @@ function draw(){
 socket.on('like', function(){
     console.log("like fired");
     message_state=1;
-    buttons.push(new button(25, like));
  
     stop_everything();
     like_song.play();
-  
+
+    buttons.push(new button(7/60*windowHeight, like));
+
     like_count++;
 })
 
 socket.on('love', function(){
     console.log("love");
     message_state=2;
-    buttons.push(new button(50, love));
 
     stop_everything();
     love_song.play();
   
+
+    buttons.push(new button(14/60*windowHeight, love));
+
     love_count++;
 })
 
 socket.on('haha', function(){
     console.log("haha");
     message_state=3;
-    buttons.push(new button(75, haha));
    
     stop_everything();
     haha_song.play();
+
+
+    buttons.push(new button(21/60*windowHeight, haha));
 
     haha_count++;
 })
@@ -144,11 +149,12 @@ socket.on('haha', function(){
 socket.on('wow', function(){
     console.log("wow");
     message_state=4;
-    buttons.push(new button(100, wow));
-    
+
     stop_everything();
     wow_song.play();
-   
+
+    buttons.push(new button(28/60*windowHeight, wow));
+
     wow_count++;
    
 })
@@ -156,22 +162,25 @@ socket.on('wow', function(){
 socket.on('angry', function(){
     console.log("angry");
     message_state=5;
-    buttons.push(new button(125, angry));
-  
+
     stop_everything();
     angry_song.play();
-    
+
+    buttons.push(new button(35/60*windowHeight, angry));
+
     angry_count++;
 })
 
 socket.on('sad', function(){
     console.log("sad");
     message_state=6;
-    buttons.push(new button(175, sad));
 
     stop_everything();
     sad_song.play();
   
+
+    buttons.push(new button(.7*windowHeight, sad));
+
     sad_count++;
 })
 
