@@ -60,7 +60,7 @@ function draw(){
 
     text_size=40;
     
-    last_played = default_song;
+    //last_played = default_song;
 
     image(like, .3*windowWidth, .85*windowHeight, windowHeight/25, windowHeight/25);
     text(like_count, .33*windowWidth, .88*windowHeight);
