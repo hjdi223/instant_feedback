@@ -1,6 +1,5 @@
-
 function setup(){
-  createCanvas(400, 520);
+  createCanvas(windowWidth, windowHeight);
   background(0);
   console.log("Ready to listen to Input -->");
 }
@@ -17,48 +16,48 @@ function preload() {
 function draw(){
   background(0);
 
-  image(like,150,5,80,80)
-  image(love,150,90,80,80)
-  image(haha,150,175,80,80)
-  image(wow,150,260,80,80)
-  image(angry,150,345,80,80)
-  image(sad,150,430,80,80)
+  image(like,windowWidth/2.5,windowHeight/47,.15*windowHeight,.15*windowHeight)
+  image(love,windowWidth/2.5,windowHeight*8/47,.15*windowHeight,.15*windowHeight)
+  image(haha,windowWidth/2.5,windowHeight*15/47,.15*windowHeight,.15*windowHeight)
+  image(wow,windowWidth/2.5,windowHeight*22/47,.15*windowHeight,.15*windowHeight)
+  image(angry,windowWidth/2.5,windowHeight*29/47,.15*windowHeight,.15*windowHeight)
+  image(sad,windowWidth/2.5,windowHeight*36/47,.15*windowHeight,.15*windowHeight)
 }
 //like
-function mouseClicked() {
-    if(mouseX>150&&mouseX<250&&mouseY>5&&mouseY<80){
+function touchEnded() {
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight/47&&mouseY<(windowHeight/47+.15*windowHeight)){
         console.log("like!");
-        
+
         httpGet('/like');
     }
 //love
-    if(mouseX>150&&mouseX<250&&mouseY>85&&mouseY<165){
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight*8/47&&mouseY<(windowHeight*8/47+.15*windowHeight)){
         console.log("love!");
-     
+
         httpGet('/love');
     }
 //haha
-    if(mouseX>150&&mouseX<250&&mouseY>175&&mouseY<250){
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight*15/47&&mouseY<(windowHeight*15/47+.15*windowHeight)){
         console.log("haha");
-     
+
         httpGet('/haha');
     }
 //wow
-    if(mouseX>150&&mouseX<250&&mouseY>260&&mouseY<335){
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight*22/47&&mouseY<(windowHeight*22/47+.15*windowHeight)){
         console.log("wow");
-      
+
         httpGet('/wow');
     }
 //angry
-    if(mouseX>150&&mouseX<250&&mouseY>345&&mouseY<420){
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight*29/47&&mouseY<(windowHeight*29/47+.15*windowHeight)){
         console.log("angry");
-      
+
         httpGet('/angry');
     }
 //sad
-    if(mouseX>150&&mouseX<250&&mouseY>430&&mouseY<500){
+    if(mouseX>windowWidth/2.5&&mouseX<(windowWidth/2.5+.15*windowHeight)&&mouseY>windowHeight*36/47&&mouseY<(windowHeight*36/47+.15*windowHeight)){
         console.log("sad");
         httpGet('/sad');
-        
+
     }
 }
